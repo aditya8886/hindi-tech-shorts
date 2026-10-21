@@ -8,10 +8,27 @@ permissions:
   contents: read
 
 jobs:
-  setup-check:
+  download-footage:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
-      - name: Confirm automation is running
-        run: |
-          echo "Hindi Tech Shorts automation is running!"
-          echo "Next: footage, Hindi voiceover, subtitles, and video editing."
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Download free technology footage
+        run: python scripts/download_footage.py
+
+      - name: Save downloaded footage as an artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: hindi-tech-footage
+          path: downloads/
+          if-no-files-found: warn
+          retention-days: 3
