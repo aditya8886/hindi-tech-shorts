@@ -1,0 +1,17 @@
+
+name: Hindi Tech Shorts
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  setup-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm automation is running
+        run: |
+          echo "Hindi Tech Shorts automation is running!"
+          echo "Next: footage, Hindi voiceover, subtitles, and video editing."
